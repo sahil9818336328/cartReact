@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import Navbar from "./Navbar";
 import CartContainer from "./CartContainer";
 // import Loading from "./Loading";

@@ -3,13 +3,14 @@ const reducer = (state, action) => {
   if (action.type === "LOADING") {
     return { ...state, loading: true };
   }
+
   //   display the items
   if (action.type === "DISPLAY_ITEMS") {
     return { ...state, cart: action.payload, loading: false };
   }
   //clear cart action
   if (action.type === "CLEAR_CART") {
-    //return all the existing values and empty the cart .
+    //return all the existing states but empty the cart .
     return { ...state, cart: [] };
   }
   //   remove item action
@@ -41,14 +42,14 @@ const reducer = (state, action) => {
         return item;
       })
       .filter((item) => item.amount !== 0); // if the item has an amount === 0 , dont show that item .
-    return { ...state, cart: tempCart }; //just changing the amount value
+    return { ...state, cart: tempCart };
   }
   if (action.type === "GET_TOTALS") {
     let { amount, total } = state.cart.reduce(
       //this will return us an object with amount and total as properties, so we destructure it.
       (accumulator, currentItem) => {
         //   console.log(currentItem);
-        const { price, amount } = currentItem; //single item === object.
+        const { price, amount } = currentItem; // currentItem === object.
         // console.log(price, amount);
         const itemTotal = price * amount;
 
@@ -58,6 +59,7 @@ const reducer = (state, action) => {
       },
       { amount: 0, total: 0 }
     );
+
     total = parseFloat(total).toFixed(2);
     return { ...state, amount, total };
   }

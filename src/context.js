@@ -33,15 +33,18 @@ const AppProvider = ({ children }) => {
     dispatch({ type: "DECREASE_ITEM", payload: id });
   };
   // FETCH THE DATA //LOADING
+
   const fetchData = async () => {
     dispatch({ type: "LOADING" });
     const response = await fetch(url);
     const finalResponse = await response.json();
     dispatch({ type: "DISPLAY_ITEMS", payload: finalResponse }); //response from external API.
   };
+
   useEffect(() => {
     fetchData();
   }, []); //only run once on the initial render
+
   useEffect(() => {
     dispatch({ type: "GET_TOTALS" });
   }, [state.cart]); //runs when cart is modified.
@@ -56,4 +59,4 @@ const AppProvider = ({ children }) => {
 const useGlobalContext = () => {
   return useContext(globalContext);
 };
-export { globalContext, AppProvider, useGlobalContext };
+export { AppProvider, useGlobalContext };
